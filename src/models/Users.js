@@ -13,6 +13,12 @@ const UserSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+	
+	discriminator: {
+		type: Number,
+		required: true,
+		unique: true
+	},
 
     email: {
         type: String,
@@ -29,6 +35,11 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         default: 10.0
     },
+	
+	admin: {
+		type: Boolean,
+		default: false
+	},
 
     createdAt: {
         type: Date,

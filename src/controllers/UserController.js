@@ -39,5 +39,17 @@ module.exports = {
 			}).catch(err => {
 				return res.status(400).send('E-mail ou usuário em uso!');
 			});
+    },
+	
+	async getUserAdmin(req, res) {
+			let username = req.params.username;
+            const users = await Users.findOne({
+				admin: true,
+				username: username
+			}).then(data => {
+				return res.status(200).send(data);
+			}).catch(err => {
+				return res.status(400).send('Usuário não possui acesso de administrador!');
+			});
     }
 }
