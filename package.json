@@ -9,6 +9,7 @@
     "http": "^0.0.0",
     "moment": "^2.22.2",
     "mongoose": "^5.3.11",
+    "nodemailer": "^4.6.8",
     "socket.io": "^2.1.1"
   },
   "scripts": {
