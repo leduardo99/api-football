@@ -6,6 +6,7 @@ const UserController = require('./src/controllers/UserController');
 
 routes.post('/registro', UserController.store);
 routes.post('/recuperar/senha/:email', UserController.updatePassword);
+routes.post('/alterar/senha/:email/:password', UserController.updateNewPassword);
 
 routes.get('/enviar/email/:email/:password', UserController.retrivePassword);
 routes.get('/users/email/:email', UserController.getUserByEmailRegister);

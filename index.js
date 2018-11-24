@@ -9,7 +9,7 @@ const io = require('socket.io')(server);
 
 const port = process.env.PORT || 54987;
 
-mongoose.connect('mongodb://leduardo:913700lL@ds255403.mlab.com:55403/foot-betting', { useNewUrlParser: true });
+mongoose.connect('mongodb://leduardo:913700lL@ds115244.mlab.com:15244/footbetting', { useNewUrlParser: true });
 
 app.use((req, res, next) => {
     req.io = io;

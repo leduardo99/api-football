@@ -14,12 +14,6 @@ const UserSchema = new mongoose.Schema({
         unique: true
     },
 	
-	discriminator: {
-		type: Number,
-		required: true,
-		unique: true
-	},
-
     email: {
         type: String,
         required: true,
@@ -29,11 +23,6 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    },
-
-    balance: {
-        type: Number,
-        default: 10.0
     },
 	
 	admin: {

@@ -75,6 +75,24 @@ module.exports = {
 
 		return res.status(200).send(password);
 	},
+	
+	async updateNewPassword(req, res) {
+		let newPass = req.params.password;
+		let email = req.params.email;
+		const users = await Users.findOneAndUpdate(
+			{
+				email: email
+			},
+			{
+				$set: {
+					password: newPass
+				}
+			});
+			
+		users.save();
+
+		return res.json(users);
+	},
 
 	async retrivePassword(req, res) {
 		let $destinatario = req.params.email;
