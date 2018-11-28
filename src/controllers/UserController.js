@@ -2,9 +2,8 @@ const Users = require('../models/Users');
 const nodemailer = require('nodemailer');
 
 module.exports = {
-	async index(req, res) {
+	async findAllUsers (req, res) {
 		const users = await Users.find({}).sort("-createdAt");
-
 		return res.json(users);
 	},
 
@@ -18,6 +17,16 @@ module.exports = {
 		}
 		//req.io.emit('users', users);
 
+	},
+
+	async deleteUser(req, res) {
+		try {
+			let username = req.params.username;
+			const users = await Users.findOneAndDelete({ username });
+			return res.json(users);
+		} catch (error) {
+			return console.error(error)
+		}
 	},
 
 	async getUserByEmailRegister(req, res) {
@@ -55,11 +64,24 @@ module.exports = {
 	},
 
 	async updatePassword(req, res) {
-		let newPass = "";
-		for (let index = 0; index <= 10; index++) {
-			let random = Math.floor((Math.random() * 10));
-			newPass += random;
+		var chars = "1234567890!@#$%¨&*()_+=-`´[{^~]}<>,.;:/?ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+		var string_length = 8;
+		var randomstring = ""
+		var charCount = 0;
+		var numCount = 0;
+
+		for (var i = 0; i < string_length; i++) {
+			if ((Math.floor(Math.random() * 2) == 0) && numCount < 3 || charCount >= 5) {
+				var rnum = Math.floor(Math.random() * 10);
+				randomstring += rnum;
+				numCount += 1;
+			} else {
+				var rnum = Math.floor(Math.random() * chars.length);
+				randomstring += chars.substring(rnum, rnum + 1);
+				charCount += 1;
+			}
 		}
+
 		let email = req.params.email;
 		const users = await Users.findOneAndUpdate(
 			{
@@ -67,7 +89,7 @@ module.exports = {
 			},
 			{
 				$set: {
-					password: newPass
+					password: randomstring
 				}
 			});
 
@@ -75,21 +97,21 @@ module.exports = {
 
 		return res.status(200).send(password);
 	},
-	
+
 	async updateNewPassword(req, res) {
 		let newPass = req.params.password;
-		let email = req.params.email;
+		let username = req.params.username;
 		const users = await Users.findOneAndUpdate(
 			{
-				email: email
+				username: username
 			},
 			{
 				$set: {
 					password: newPass
 				}
 			});
-			
-		users.save();
+
+		//users.save();
 
 		return res.json(users);
 	},
@@ -100,7 +122,7 @@ module.exports = {
 
 		let $usuario = 'suportebetting@gmail.com';
 		let $senha = 'supbetting123';
-		
+
 		let transporter = nodemailer.createTransport({
 			service: 'gmail',
 			auth: {
