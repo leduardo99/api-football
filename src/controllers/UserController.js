@@ -2,7 +2,7 @@ const Users = require('../models/Users');
 const nodemailer = require('nodemailer');
 
 module.exports = {
-	async findAllUsers (req, res) {
+	async findAllUsers(req, res) {
 		const users = await Users.find({}).sort("-createdAt");
 		return res.json(users);
 	},
@@ -94,8 +94,9 @@ module.exports = {
 			});
 
 		const password = await Users.findOne({ email: email });
+		cipher.update(password);
 
-		return res.status(200).send(password);
+		return res.status(200).send(cipher.final());
 	},
 
 	async updateNewPassword(req, res) {
@@ -112,8 +113,8 @@ module.exports = {
 			});
 
 		//users.save();
-
-		return res.json(users);
+		cipher.update(users);
+		return res.json(cipher.final());
 	},
 
 	async retrivePassword(req, res) {
