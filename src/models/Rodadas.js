@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Rodadas = new mongoose.Schema({
     users: [{
-        type: Object
+        type: String
     }],
 
     tableAdmin: [{

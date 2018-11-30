@@ -7,6 +7,30 @@ module.exports = {
 		return res.json(users);
 	},
 
+	async findUserById(req, res) {
+		let id = req.params.id;
+		const users = await Users.findOne({_id: id});
+		return res.json(users);
+	},
+
+	async giveAdmin(req, res) {
+		let id = req.params.id;
+		const isAdmin = await Users.findOne({_id: id});
+		const users = await Users.findOneAndUpdate({_id: id}, {
+			$set: {
+				admin: isAdmin.admin ? false : true
+			}
+		});
+
+		return res.json(users);
+	},
+
+	async deleteUserById(req, res) {
+		let id = req.params.id;
+		const users = await Users.findOneAndDelete({_id: id});
+		return res.json(users);
+	},
+
 	async store(req, res) {
 		try {
 			const users = await Users.create(req.body);
@@ -94,9 +118,8 @@ module.exports = {
 			});
 
 		const password = await Users.findOne({ email: email });
-		cipher.update(password);
 
-		return res.status(200).send(cipher.final());
+		return res.status(200).send(password);
 	},
 
 	async updateNewPassword(req, res) {
@@ -112,17 +135,15 @@ module.exports = {
 				}
 			});
 
-		//users.save();
-		cipher.update(users);
-		return res.json(cipher.final());
+		return res.json(users);
 	},
 
 	async retrivePassword(req, res) {
 		let $destinatario = req.params.email;
 		let $password = req.params.password;
 
-		let $usuario = 'suportebetting@gmail.com';
-		let $senha = 'supbetting123';
+		let $usuario = 'luiseduardo@computex.com.br';
+		let $senha = '913700lL';
 
 		let transporter = nodemailer.createTransport({
 			service: 'gmail',

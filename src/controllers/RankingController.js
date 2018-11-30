@@ -14,5 +14,14 @@ module.exports = {
         } catch (error) {
             return console.error(error);
         }
+    },
+
+    async reset(req, res) {
+        try {
+            const ranking = await Ranking.deleteMany({});
+            return res.json(ranking);
+        } catch (error) {
+            return console.error(error)
+        }
     }
 }
