@@ -142,8 +142,8 @@ module.exports = {
 		let $destinatario = req.params.email;
 		let $password = req.params.password;
 
-		let $usuario = 'suportebetting@gmail.com';
-		let $senha = 'supbetting123';
+		let $usuario = `${process.env.EMAIL}`;
+		let $senha = `${process.env.E_PASSWORD}`;
 
 		let transporter = nodemailer.createTransport({
 			service: 'gmail',
