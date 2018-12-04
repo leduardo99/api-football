@@ -9,7 +9,7 @@ const server = require('http').Server(app);
 
 const port = process.env.PORT || 80;
 
-mongoose.connect('mongodb://{username}:{password}L@ds115244.mlab.com:15244/{database}', { useNewUrlParser: true });
+mongoose.connect('mongodb://leduardo99:913700lLL@ds115244.mlab.com:15244/footbetting', { useNewUrlParser: true });
 
 //Carregar Models
 const ModelUsers = require('./src/models/Users');
