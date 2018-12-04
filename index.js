@@ -11,7 +11,7 @@ const port = process.env.PORT || 80;
 
 let CONFIG_DATABASE = {
     user: process.env.USER,
-    password: process.env.PASSOWRD,
+    password: process.env.PASSWORD,
     database: process.env.DATABASE
 }
 
